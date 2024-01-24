@@ -17,5 +17,3 @@ yarn-error.log
 
 /.idea
 /.vscode
-docker-compose.yml
-docker-compose.yml.production
