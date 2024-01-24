@@ -1,5 +1,5 @@
-# Rental project
-This is a traning project to learn concepts.
+# Movie Rental project
+Welcome to the Movie Rental project, a training endeavor aimed at mastering some concepts in web development.
 
 ## Requirments:
 * PHP 8.2
@@ -8,21 +8,28 @@ This is a traning project to learn concepts.
 * MySQL
 
 ## Installation
-Kindly setup the requirments for the project which listed in the requirments section.
-**Make sure that you have already created a database**
-## Regular instllation process
-1- Clone the project by the following command 
+Ensure that the project requirements are set up as outlined in the Requirements section. Additionally, **make sure you have created a database for the project.**
+
+## Regular Installation Process
+1- Clone the project using the following command:
 `git clone https://github.com/MutlaqAldhbuiub/movies`
-2- Change the current directory to the project directory
+
+2- Navigate to the project directory:
 `cd movies`
-3- Run composer by run
+
+3- Install dependencies with Composer:
 `composer install`
-4- Copy the env example file
+
+4- Copy the example environment file:
 `cp .env.example .env`
-5- Generate a key for the project
+
+5- Generate a key for the project:
 `php artisan key:generate`
-6- migrate the table schemas to the database
+
+6- Migrate the database table schemas:
 `php artisan migrate`
-7- run the project
+
+7- Run the project:
 `php artisan serve`
-8- Go to link `localhost:8000`
+
+8- Visit `localhost:8000` in your browser.
