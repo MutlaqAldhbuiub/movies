@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class MovieController extends Controller
 {
+
+    public function search($query){
+        $searchResults = Http::withToken(env('TMDB_TOKEN'))
+        ->get('https://api.themoviedb.org/3/search/movie?query='.$query)
+        ->json()['results'];
+
+        return $searchResults;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +31,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $geners = Genre::all();
+        return view('movie.create', ['genres' => $geners]);
     }
 
     /**
@@ -28,7 +40,20 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $movie = new Movie();
+        $movie->title = $request->title;
+        $movie->genre_id = $request->genre;
+        $movie->release_date = \Carbon\Carbon::parse($request->release_date);
+        $movie->image_url = 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg';
+
+        if($movie->save()){
+            $request->session()->flash('success', 'Movie was added successfully');
+            return redirect()->route('movies.create');
+        }else{
+            $request->session()->flash('error', 'There was an error adding the movie');
+            return redirect()->back()->withInput();
+        }
+
     }
 
     /**

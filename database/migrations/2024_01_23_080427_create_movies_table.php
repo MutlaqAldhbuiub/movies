@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('image_url')->nullable();
             $table->string('title');
-            $table->foreignId('genre_id')->constrained();
+            $table->unsignedBigInteger('genre_id');
             $table->date('release_date');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('genre_id')->references('id')->on('genres');
         });
     }
 
