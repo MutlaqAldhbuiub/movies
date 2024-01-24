@@ -1,0 +1,51 @@
+# Laravel specific files and directories
+node_modules/
+public/hot/
+public/storage/
+storage/*.key
+vendor/
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# Docker and development-related files
+Dockerfile
+docker-compose.yml
+docker-compose.yaml
+.idea
+.gitignore
+.gitattributes
+.sass-cache
+
+# Ignore general files and directories
+.git
+node_modules
+vendor
+.env
+.env.*
+*.log
+*.sql
+
+# Ignore development and testing files
+docker-compose*
+Dockerfile*
+phpunit.xml
+phpunit-*.xml
+phpunit-*.dist.xml
+
+# Ignore Composer files
+composer.json
+composer.lock
+composer.phar
+
+# Ignore NPM and Yarn files
+package.json
+package-lock.json
+yarn.lock
+
+# Ignore user-specific files
+Homestead.yaml
+Homestead.json
