@@ -1,4 +1,4 @@
-FROM ghcr.io/MutlaqAldhbuiub/docker_laravel_base_image:latest
+FROM ghcr.io/mutlaqaldhbuiub/docker_laravel_base_image:latest
 
 # Set working directory
 WORKDIR /var/www/html
