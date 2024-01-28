@@ -16,6 +16,9 @@ RUN chmod -R 755 /var/www/html/
 USER www
 WORKDIR /var/www/html
 
+RUN chmod -R 755 bootstrap/cache/ 
+RUN chmod -R 755 storage/
+
 # setup laravel
 RUN composer install
 RUN npm install
