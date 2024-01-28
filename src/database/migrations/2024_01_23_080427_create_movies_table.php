@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('image_url')->nullable();
             $table->string('title');
+            $table->string('slug');
             $table->unsignedBigInteger('genre_id');
             $table->date('release_date');
             $table->softDeletes();

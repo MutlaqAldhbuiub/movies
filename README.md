@@ -33,3 +33,7 @@ Ensure that the project requirements are set up as outlined in the Requirements 
 `php artisan serve`
 
 8- Visit `localhost:8000` in your browser.
+
+#### Admin account
+- Username: `admin`
+- Password: `password`

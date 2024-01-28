@@ -6,6 +6,7 @@ use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -23,7 +24,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::all()->paginate(10);
     }
 
     /**
@@ -47,10 +48,10 @@ class MovieController extends Controller
         $movie->image_url = 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg';
 
         if($movie->save()){
-            $request->session()->flash('success', 'Movie was added successfully');
+            // $request->session()->flash('success', 'Movie was added successfully');
             return redirect()->route('movies.create');
         }else{
-            $request->session()->flash('error', 'There was an error adding the movie');
+            // $request->session()->flash('error', 'There was an error adding the movie');
             return redirect()->back()->withInput();
         }
 
@@ -69,15 +70,22 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        $genres = Genre::all();
+        return view('movie.edit', ['movie' => $movie, 'genres' => $genres]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Movie $movie)
+    public function update(Request $request, $movie)
     {
-        //
+        $movie = Movie::findOrFail($movie);
+        $movie->title = $request->title;
+        $movie->genre_id = $request->genre_id;
+        $movie->slug = Str::slug($request->title);
+        $movie->release_date = $request->release_date;
+        $movie->save();
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -85,6 +93,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        // TOODO::delete the movie
+        // Check the roles and permission if the user eligable to delete?
+        $movie->delete();
     }
 }

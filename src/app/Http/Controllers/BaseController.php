@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Genre;
 
 class BaseController extends Controller
 {
@@ -13,7 +14,8 @@ class BaseController extends Controller
     public function index()
     {
         $movies = Movie::all();
-        return view('dashboard', ['movies' => $movies]);
+        $genres = Genre::all();
+        return view('dashboard', ['movies' => $movies, 'genres' => $genres]);
     }
 
     /**

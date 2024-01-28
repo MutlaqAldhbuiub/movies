@@ -29,11 +29,15 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// movies
-Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
-Route::post('/movies/create', [MovieController::class, 'store'])->name('movies.store');
-Route::post('/movies/search', [MovieController::class, 'search'])->name('movies.search');
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
-
+// movies routes
+Route::middleware('auth')->group(function () {
+    Route::get('/movies/create', [MovieController::class, 'create'])->middleware('auth')->name('movies.create');
+    Route::post('/movies/create', [MovieController::class, 'store'])->name('movies.store');
+    Route::post('/movies/search', [MovieController::class, 'search'])->name('movies.search');
+    Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+    Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
+    Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
+    Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
+});
 
 require __DIR__.'/auth.php';
