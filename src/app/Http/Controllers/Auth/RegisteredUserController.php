@@ -42,6 +42,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
         ]);
 
+        $user->assignRole('worker');
 
         event(new Registered($user));
 

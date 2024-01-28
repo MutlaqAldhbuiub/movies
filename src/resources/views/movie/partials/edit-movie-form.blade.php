@@ -65,8 +65,8 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
             @role('owner')
+            <x-primary-button>{{ __('Save') }}</x-primary-button>
             <form method="POST" action="{{ route('movies.destroy', $movie) }}">
                 @csrf
                 @method('DELETE')
