@@ -18,7 +18,7 @@ services:
     networks:
       - movies_new_network
     env_file:
-      - .env
+      - stack.env
 
   #Nginx Service
   webserver:
@@ -28,7 +28,7 @@ services:
       - persistent:/var/www/html:delegated
       - /home/movies/storage/:/var/www/html/storage/:delegated
     ports:
-      - "${NGINX_PORT}:80"
+      - "8080:8008"
     pull_policy: always
     restart: unless-stopped
     networks:
