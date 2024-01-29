@@ -4,7 +4,7 @@ version: "3.0"
 services:
   # PHP Service
   app:
-    container_name: movies-php-v2
+    container_name: movies-php
     image: "ghcr.io/mutlaqaldhbuiub/movies"
     volumes:
       - persistent:/var/www/html:delegated
@@ -15,26 +15,10 @@ services:
     working_dir: /var/www/html
     pull_policy: always
     restart: unless-stopped
-    networks:
-      - movies_new_network
-    env_file:
-      - stack.env
-
-  #Nginx Service
-  webserver:
-    container_name: movies-webserver-v2
-    image: "ghcr.io/mutlaqaldhbuiub/docker_laravel_base_image"
-    volumes:
-      - persistent:/var/www/html:delegated
-      - /home/movies/storage/:/var/www/html/storage/:delegated
     ports:
-      - "8080:8008"
-    pull_policy: always
-    restart: unless-stopped
+      - "8080:8080"
     networks:
       - movies_new_network
-    depends_on:
-      - app
     env_file:
       - stack.env
 
