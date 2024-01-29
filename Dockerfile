@@ -11,13 +11,15 @@ COPY ./src /var/www/html/
 COPY --chown=www:www ./src /var/www/html/
 RUN chown -R www:www /var/www/html/
 RUN chmod -R 755 /var/www/html/
+RUN chown -R 775 /var/www/html/storage
+RUN chmod -R 775 /var/www/html/bootstrap/
 
 # Change current user to www
 USER www
 WORKDIR /var/www/html
 
 # setup laravel
-RUN composer install
+RUN composer install --ignore-platform-reqs
 RUN npm install
 RUN npm run build
 
