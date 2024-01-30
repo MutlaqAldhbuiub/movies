@@ -24,8 +24,8 @@ RUN apt-get update \
 
 # Install PHP extensions
 RUN apt-get install -y libicu-dev \
-&& docker-php-ext-configure intl \
-&& docker-php-ext-install intl
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
 
 # Node.js, NPM, Yarn
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
@@ -33,10 +33,10 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && npm install npm@latest -g \
     && npm install yarn -g
 
-# Composer
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install dependencies
+# Copy application code
 COPY . /var/www/html/
 
 # Set permissions
@@ -46,13 +46,17 @@ RUN chown -R www-data:www-data /var/www/html \
 # Switch to www-data user
 USER www-data
 
-# What's the version of composer?
+# Verify Composer installation
 RUN composer --version
 
-# setup laravel
-# RUN composer install
+# Install PHP dependencies
+RUN composer install --no-interaction --optimize-autoloader
+
+# Install JavaScript dependencies
 RUN npm install
 RUN npm run build
+
+# Optimize Laravel application
 RUN php artisan config:cache \
     && php artisan optimize:clear \
     && php artisan cache:clear \
