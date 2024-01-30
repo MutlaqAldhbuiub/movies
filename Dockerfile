@@ -47,9 +47,9 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
 # Install PHP and JS dependencies
-# RUN composer install
-# RUN npm install
-# RUN npm run build
+RUN composer install
+RUN npm install
+RUN npm run build
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
