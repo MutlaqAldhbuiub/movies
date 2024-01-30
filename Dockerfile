@@ -31,6 +31,7 @@ RUN apt-get update \
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 
 # Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install Node.js and NPM
@@ -39,6 +40,13 @@ RUN apt-get install -y nodejs
 
 # Copy existing application directory
 COPY . /var/www/html
+
+# validate composer
+RUN composer validate
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
 
 # Install PHP and JS dependencies
 RUN composer install
