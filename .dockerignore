@@ -12,9 +12,6 @@ npm-debug.log
 yarn-error.log
 
 # Docker and development-related files
-Dockerfile
-docker-compose.yml
-docker-compose.yaml
 .idea
 .gitignore
 .gitattributes
@@ -36,15 +33,6 @@ phpunit.xml
 phpunit-*.xml
 phpunit-*.dist.xml
 
-# Ignore Composer files
-composer.json
-composer.lock
-composer.phar
-
-# Ignore NPM and Yarn files
-package.json
-package-lock.json
-yarn.lock
 
 # Ignore user-specific files
 Homestead.yaml
