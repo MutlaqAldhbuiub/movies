@@ -38,7 +38,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
-# Copy existing application directory
+# Copy existing application directory contents
+# copy composer.lock and composer.json
+COPY composer.lock composer.json /var/www/html/
 COPY . /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html \
