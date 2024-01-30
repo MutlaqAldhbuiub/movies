@@ -41,5 +41,9 @@ RUN composer global require "laravel/installer"
 WORKDIR /root
 RUN git clone https://github.com/seebi/dircolors-solarized
 
-EXPOSE 5173
 WORKDIR /var/www
+
+COPY ./src/composer.lock ./src/composer.json /var/www/html/
+COPY ../../ /var/www/html/
+
+EXPOSE 5173
