@@ -47,11 +47,14 @@ RUN chown -R www-data:www-data /var/www/html \
 # Switch to www-data user
 USER www-data
 
+# What's the version of composer?
+RUN composer --version
+
 # setup laravel
-RUN composer install \
-    && npm install \
-    && npm run build \
-    && php artisan config:cache \
+RUN composer install
+RUN npm install
+RUN npm run build
+RUN php artisan config:cache \
     && php artisan optimize:clear \
     && php artisan cache:clear \
     && php artisan view:clear \
