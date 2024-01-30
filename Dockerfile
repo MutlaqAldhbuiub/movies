@@ -6,7 +6,7 @@ FROM php:8.2-fpm
 WORKDIR /var/www/html
 
 # Install dependencies
-COPY composer.lock .composer.json /var/www/html/
+COPY composer.lock composer.json /var/www/html/
 COPY . /var/www/html/
 
 # set permissions
