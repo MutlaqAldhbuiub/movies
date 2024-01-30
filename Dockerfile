@@ -26,7 +26,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install zip pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd intl
+RUN apt-get install -y libicu-dev \
+&& docker-php-ext-configure intl \
+&& docker-php-ext-install intl
+
 
 # Node.js, NPM, Yarn
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
