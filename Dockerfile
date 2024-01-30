@@ -10,7 +10,7 @@ COPY .composer.lock .composer.json /var/www/html/
 COPY . /var/www/html/
 
 # set permissions
-COPY --chown=www:www ./src /var/www/html/
+COPY --chown=www:www . /var/www/html/
 RUN chown -R www:www /var/www/html/
 RUN chmod -R 755 /var/www/html/
 
