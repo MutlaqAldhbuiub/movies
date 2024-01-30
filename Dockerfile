@@ -51,6 +51,12 @@ RUN composer install
 RUN npm install
 RUN npm run build
 
+RUN php artisan config:cache
+RUN php artisan optimize:clear
+RUN php artisan cache:clear
+RUN php artisan view:clear
+RUN php artisan storage:link
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
