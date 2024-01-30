@@ -1,9 +1,20 @@
+# Start with a base image containing PHP
 FROM php:8.2-fpm
 
-COPY php.ini /usr/local/etc/php/
-COPY docker.conf /usr/local/etc/php-fpm.d/docker.conf
-COPY .bashrc /root/
 
+# Set working directory
+WORKDIR /var/www/html
+
+# Install dependencies
+COPY .composer.lock .composer.json /var/www/html/
+COPY . /var/www/html/
+
+# set permissions
+COPY --chown=www:www ./src /var/www/html/
+RUN chown -R www:www /var/www/html/
+RUN chmod -R 755 /var/www/html/
+
+# Install system dependencies
 RUN apt-get update \
   && apt-get install -y build-essential zlib1g-dev default-mysql-client curl gnupg procps vim git unzip libzip-dev libpq-dev \
   && docker-php-ext-install zip pdo_mysql pdo_pgsql pgsql
@@ -12,13 +23,9 @@ RUN apt-get install -y libicu-dev \
 && docker-php-ext-configure intl \
 && docker-php-ext-install intl
 
-# pcov
-RUN pecl install pcov && docker-php-ext-enable pcov
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Xdebug
-# RUN pecl install xdebug \
-# && docker-php-ext-enable xdebug \
-# && echo ";zend_extension=xdebug" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 # Node.js, NPM, Yarn
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
@@ -37,8 +44,22 @@ ENV PATH $PATH:/composer/vendor/bin
 RUN composer config --global process-timeout 3600
 RUN composer global require "laravel/installer"
 
-WORKDIR /root
-RUN git clone https://github.com/seebi/dircolors-solarized
+# Change current user to www
+USER www
+WORKDIR /var/www/html
 
+# setup laravel
+RUN composer install
+RUN npm install
+RUN npm run build
+
+# RUN npm run dev
+RUN php artisan config:cache
+RUN php artisan optimize:clear
+RUN php artisan cache:clear
+RUN php artisan view:clear
+RUN php artisan storage:link
+
+# Expose port 9000 and start php-fpm server
 EXPOSE 9000
-WORKDIR /var/www
+CMD ["php-fpm"]
