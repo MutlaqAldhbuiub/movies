@@ -47,9 +47,6 @@ RUN chown -R www-data:www-data /var/www/html \
 # Switch to www-data user
 USER www-data
 
-# Install Laravel installer
-RUN composer global require "laravel/installer"
-
 # setup laravel
 RUN composer install \
     && npm install \
