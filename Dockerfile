@@ -4,9 +4,6 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www/html
 
-# Install dependencies
-COPY . /var/www/html/
-
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -30,7 +27,6 @@ RUN apt-get install -y libicu-dev \
 && docker-php-ext-configure intl \
 && docker-php-ext-install intl
 
-
 # Node.js, NPM, Yarn
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
@@ -39,6 +35,9 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install dependencies
+COPY . /var/www/html/
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
@@ -51,7 +50,7 @@ USER www-data
 RUN composer --version
 
 # setup laravel
-RUN /usr/local/bin/composer install
+RUN composer install
 RUN npm install
 RUN npm run build
 RUN php artisan config:cache \
