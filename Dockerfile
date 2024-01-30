@@ -50,7 +50,7 @@ USER www-data
 RUN composer --version
 
 # setup laravel
-RUN composer install
+# RUN composer install
 RUN npm install
 RUN npm run build
 RUN php artisan config:cache \
