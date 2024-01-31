@@ -7,6 +7,7 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MovieController extends Controller
 {
@@ -24,7 +25,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::all()->paginate(10);
+
     }
 
     /**
@@ -44,14 +45,14 @@ class MovieController extends Controller
         $movie = new Movie();
         $movie->title = $request->title;
         $movie->genre_id = $request->genre;
-        $movie->release_date = \Carbon\Carbon::parse($request->release_date);
+        $movie->release_date = $request->release_date;
         $movie->image_url = 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg';
 
         if($movie->save()){
-            // $request->session()->flash('success', 'Movie was added successfully');
-            return redirect()->route('movies.create');
+            Alert::success('Success', 'Movie was added successfully');
+            return redirect()->route('dashboard');
         }else{
-            // $request->session()->flash('error', 'There was an error adding the movie');
+            Alert::error('Error', 'There was an error adding the movie');
             return redirect()->back()->withInput();
         }
 
@@ -84,8 +85,13 @@ class MovieController extends Controller
         $movie->genre_id = $request->genre_id;
         $movie->slug = Str::slug($request->title);
         $movie->release_date = $request->release_date;
-        $movie->save();
-        return redirect()->route('dashboard');
+        if($movie->save()){
+            Alert::success('Success', 'Movie was updated successfully');
+            return redirect()->route('dashboard');
+        }else{
+            Alert::error('Error', 'There was an error updating the movie');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -95,6 +101,12 @@ class MovieController extends Controller
     {
         // TOODO::delete the movie
         // Check the roles and permission if the user eligable to delete?
-        $movie->delete();
+        if($movie->delete()){
+            Alert::success('Success', 'Movie was deleted successfully');
+            return redirect()->route('dashboard');
+        }else{
+            Alert::error('Error', 'There was an error deleting the movie');
+            return redirect()->route('dashboard');
+        }
     }
 }

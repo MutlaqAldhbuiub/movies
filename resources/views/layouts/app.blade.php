@@ -24,6 +24,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+            @include('sweetalert::alert')
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -44,7 +45,7 @@
 
         @yield('scripts')
 
-        @livewireScriptConfig
+        @livewireScripts
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 
         {{-- Flowbite libs --}}
