@@ -58,6 +58,8 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@v1.2.1
     # - name: Execute tests (Unit and Feature tests) via PHPUnit
     #   env:
     #     DB_CONNECTION: sqlite
