@@ -13,7 +13,7 @@ class MovieController extends Controller
 {
 
     public function search($query){
-        $searchResults = Http::withToken(env('TMDB_TOKEN'))
+        $searchResults = Http::withToken(config('TMDB_TOKEN'))
         ->get('https://api.themoviedb.org/3/search/movie?query='.$query)
         ->json()['results'];
 
