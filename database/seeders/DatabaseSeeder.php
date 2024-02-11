@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // seed genres to the database
-        $this->call(UserSeeder::class);
-        $this->call(GenreSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(MovieSeeder::class);
+        $this->call(RoleSeeder::class); // 1
+        $this->call(UserSeeder::class); // 2
+        $this->call(GenreSeeder::class); // 3
+        $this->call(MovieSeeder::class); // 4
     }
 }
