@@ -19,17 +19,6 @@
             <x-text-input id="title" name="title" type="text" class="mt-1 block w-full bg-gray-50"
                 :value="$movie->title" required autofocus autocomplete="title" />
             {{-- suggestions from /movies/search --}}
-            <div class="mt-2">
-                <div id="suggestions">
-                    <span class="text-indigo-500">lorem ipsum</span>
-                    <span class="text-white">,</span>
-                    <span class="text-indigo-500">lorem ipsum</span>
-                    <span class="text-white">,</span>
-                    <span class="text-indigo-500">lorem ipsum</span>
-                    <span class="text-white">,</span>
-                </div>
-            </div>
-
             <x-input-error class="mt-2" :messages="$errors->get('title')" />
         </div>
 

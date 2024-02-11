@@ -22,6 +22,13 @@ class MovieForm extends Component
         }
     }
 
+
+    // change title by passing title only
+    public function changeTitle($title)
+    {
+        $this->title = $title;
+    }
+
     public function render()
     {
         $geners = Genre::all();

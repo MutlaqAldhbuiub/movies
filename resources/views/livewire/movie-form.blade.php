@@ -9,7 +9,8 @@
             <div class="mt-2">
                 <div id="suggestions">
                     @foreach ($searchResults as $result)
-                        <span class="text-indigo-500" wire:click="$set('title', '{{$result['title']}}')">{{ $result['title'] }}</span>
+                    {{-- wire:click="$set('title', '{{$result['title']}}')" --}}
+                        <span class="text-indigo-500" wire:click="changeTitle('{{$result['title']}}')">{{ $result['title'] }}</span>
                         @if(!$loop->last)
                             <span class="text-white">,</span>
                         @endif
