@@ -18,10 +18,8 @@
             <x-input-label for="title" :value="__('Title')" :is_required="true" />
             <x-text-input id="title" name="title" type="text" class="mt-1 block w-full bg-gray-50"
                 :value="$movie->title" required autofocus autocomplete="title" />
-            {{-- suggestions from /movies/search --}}
             <x-input-error class="mt-2" :messages="$errors->get('title')" />
         </div>
-
 
         <div>
             <x-input-label for="genres" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -55,12 +53,12 @@
 
         <div class="flex items-center gap-4">
             @role('owner')
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-            <form method="POST" action="{{ route('movies.destroy', $movie) }}">
-                @csrf
-                @method('DELETE')
-                <x-danger-button>{{ __('Delete Movie') }}</x-danger-button>
-            </form>
+                <x-primary-button>{{ __('Save') }}</x-primary-button>
+                <form method="POST" action="{{ route('movies.destroy', $movie) }}">
+                    @csrf
+                    @method('DELETE')
+                    <x-danger-button>{{ __('Delete Movie') }}</x-danger-button>
+                </form>
             @endrole
         </div>
     </form>
